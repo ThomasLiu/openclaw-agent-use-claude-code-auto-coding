@@ -1,0 +1,25 @@
+{
+  "name": "@auto-ai-coding-claw/root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenClaw main agent orchestration project",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "dev:autonomous-coding": "pnpm --filter autonomous-coding dev",
+    "build:autonomous-coding": "pnpm --filter autonomous-coding build",
+    "start:autonomous-coding": "pnpm --filter autonomous-coding start"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  }
+}

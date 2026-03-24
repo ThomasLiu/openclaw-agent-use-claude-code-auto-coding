@@ -1,2 +1,18 @@
 # plugins
 plugins/
+
+# node_modules
+node_modules
+
+# env
+.env
+.env.local
+
+# autonomous-coding build output
+packages/autonomous-coding/dist
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
