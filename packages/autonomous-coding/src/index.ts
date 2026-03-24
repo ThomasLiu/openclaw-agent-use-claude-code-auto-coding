@@ -18,8 +18,8 @@
  *   node dist/index.js --project-dir ./my_project --initializer-prompt ./my_initializer.md
  */
 
+import 'dotenv/config';
 import { Command } from 'commander';
-import * as path from 'path';
 import { runAutonomousAgent } from './agent.js';
 
 // 配置
@@ -96,12 +96,8 @@ async function main() {
     process.exit(1);
   }
 
-  // 解析项目目录
-  let projectDir = opts.projectDir;
-  if (!path.isAbsolute(projectDir)) {
-    // 相对路径前加 generations/
-    projectDir = path.join('generations', projectDir);
-  }
+  // 解析项目目录（优先级：CLI选项 > 环境变量 > 默认值）
+  const projectDir = opts.projectDir || process.env.AUTONOMOUS_CODING_PROJECT_DIR || './autonomous_demo_project';
 
   // 构建提示词路径配置
   const promptPaths = {

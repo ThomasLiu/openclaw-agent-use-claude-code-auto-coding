@@ -6,7 +6,7 @@
 
 这是 **OpenClaw 主智能体** 编排项目 —— 一个"全自动开发编排"场景。它使用 **Claude Agent SDK (TypeScript)** 编排 Claude Code，整合 **gstack** 工作流，并通过 **GitHub/GitLab Issues** 驱动开发，遵循 SDD + DDD + TDD 模式。
 
-**关键参考**：`docs/SKILL-SPEC.md` 是 OpenClaw Skill 和 TypeScript SDK 调度层的权威实现规范。`docs/prompt/` 目录包含提示词模板（coding_prompt.md、initializer_prompt.md）。
+**关键参考**：`docs/app_spec.md` 是 OpenClaw Skill 和 TypeScript SDK 调度层的权威实现规范。`docs/prompts/` 目录包含提示词模板（coding_prompt.md、initializer_prompt.md）。
 
 ## 包管理器
 
@@ -37,7 +37,7 @@ pnpm typecheck        # tsc --noEmit 类型检查
 | 路径 | 用途 |
 |------|------|
 | `packages/autonomous-coding/` | 自主编程智能体 CLI 工具 |
-| `docs/` | 规范和提示词 — SKILL-SPEC.md 是真相源 |
+| `docs/` | 规范和提示词 — app_spec.md 是真相源 |
 | `skill/` | OpenClaw Skill 入口（`SKILL.md`） |
 | `plugins/` | 插件目录 |
 | `plugins/gstack/` | Vendored gstack — **bun** 基础，独立的 package.json |

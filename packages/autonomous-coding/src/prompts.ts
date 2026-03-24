@@ -38,18 +38,28 @@ export function getPromptConfig(overrides?: PromptPaths): PromptConfig {
     process.env.AUTONOMOUS_CODING_PROMPTS_DIR ||
     DEFAULT_PROMPTS_DIR;
 
+  const initializerPromptPath = overrides?.initializerPrompt ||
+    process.env.AUTONOMOUS_CODING_INITIALIZER_PROMPT ||
+    path.join(promptsDir, 'initializer_prompt.md');
+
+  const codingPromptPath = overrides?.codingPrompt ||
+    process.env.AUTONOMOUS_CODING_CODING_PROMPT ||
+    path.join(promptsDir, 'coding_prompt.md');
+
+  const appSpecPath = overrides?.appSpec ||
+    process.env.AUTONOMOUS_CODING_APP_SPEC ||
+    path.join(promptsDir, 'app_spec.txt');
+
+  console.log('[getPromptConfig] computed paths:');
+  console.log('  promptsDir:', promptsDir);
+  console.log('  initializerPromptPath:', initializerPromptPath);
+  console.log('  codingPromptPath:', codingPromptPath);
+  console.log('  appSpecPath:', appSpecPath);
+
   return {
-    initializerPromptPath: overrides?.initializerPrompt ||
-      process.env.AUTONOMOUS_CODING_INITIALIZER_PROMPT ||
-      path.join(promptsDir, 'initializer_prompt.md'),
-
-    codingPromptPath: overrides?.codingPrompt ||
-      process.env.AUTONOMOUS_CODING_CODING_PROMPT ||
-      path.join(promptsDir, 'coding_prompt.md'),
-
-    appSpecPath: overrides?.appSpec ||
-      process.env.AUTONOMOUS_CODING_APP_SPEC ||
-      path.join(promptsDir, 'app_spec.txt'),
+    initializerPromptPath,
+    codingPromptPath,
+    appSpecPath,
   };
 }
 
@@ -70,7 +80,7 @@ export function getCodingPrompt(config: PromptConfig): string {
 
 export function copySpecToProject(projectDir: string, config: PromptConfig): void {
   const specSource = config.appSpecPath;
-  const specDest = path.join(projectDir, 'app_spec.txt');
+  const specDest = path.join(projectDir, 'docs/app_spec.md');
 
   if (!fs.existsSync(specSource)) {
     throw new Error(`应用规范文件不存在: ${specSource}`);

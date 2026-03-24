@@ -16,7 +16,7 @@
 
 在业务仓库内交付时，除本提示中的步骤外，须 **覆盖** gstack 约定的三条 slash（以项目内 **Claude Code** 与 **SDK 调度** 协同触发为准）：
 
-- **`/review`**：审查与反馈；输出按 **`docs/SKILL-SPEC.md` §5** 进入 **Issue 评论或 wiki** 后 Review 才算完成。
+- **`/review`**：审查与反馈；输出按 **`docs/app_spec.md` §5** 进入 **Issue 评论或 wiki** 后 Review 才算完成。
 - **`/ship`**：合并前收尾（CI、PR 描述、检查清单等）；与 **人类合并策略** 对齐。
 - **`/qa`**：质量与验收校验；**优先** 使用项目已有 `pnpm test` / `pnpm lint` / CI 与项目 skill，避免重复定义。
 
@@ -35,7 +35,7 @@ ls -la
 
 # 3. 阅读实现规格（本项目的「需求真相源」）
 # 使用你环境中的读取方式，例如：
-cat docs/SKILL-SPEC.md
+cat docs/app_spec.md
 
 # 4. 任务清单（仅查看开头若干条即可，完整文件用工具读）
 head -n 80 feature_list.json
@@ -50,7 +50,7 @@ git log --oneline -20
 grep -c '"passes": false' feature_list.json || true
 ```
 
-**`docs/SKILL-SPEC.md`** 定义本仓库应交付的行为与边界；**`feature_list.json`** 定义可逐项勾选的验收步骤。两者缺一不可。
+**`docs/app_spec.md`** 定义本仓库应交付的行为与边界；**`feature_list.json`** 定义可逐项勾选的验收步骤。两者缺一不可。
 
 ---
 
@@ -101,7 +101,7 @@ pnpm install
 
 ### 步骤 5：实现
 
-1. 按 **`docs/SKILL-SPEC.md`** 与所选条目的 `description` / `steps` 编写或修改代码（TypeScript 等，以项目为准）。
+1. 按 **`docs/app_spec.md`** 与所选条目的 `description` / `steps` 编写或修改代码（TypeScript 等，以项目为准）。
 2. 为关键行为补充或更新 **Vitest** 用例（**禁止**编写「永远通过的假测试」糊弄过关）。
 3. 反复执行至 **`pnpm test`、`pnpm lint`、Prettier 检查** 均满足项目约定。
 
@@ -189,7 +189,7 @@ git commit -m "feat: 完成 [条目简述]
 
 ## 质量底线
 
-- **目标：** 最终实现与 **`docs/SKILL-SPEC.md`** 一致，且 **`feature_list.json` 全部条目可标为通过**。
+- **目标：** 最终实现与 **`docs/app_spec.md`** 一致，且 **`feature_list.json` 全部条目可标为通过**。
 - **本会话目标：** 至少 **完整交付一条** 未通过条目，并维持仓库绿色（测试 + Lint + 格式）。
 - **优先级：** **先修回归、再开发新条。**
 - **诚信：** 与规格不符的实现、假测试、仅改 `passes` 而不做验证，均不可接受。
