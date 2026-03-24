@@ -20,7 +20,22 @@
 
 import 'dotenv/config';
 import { Command } from 'commander';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 import { runAutonomousAgent } from './agent.js';
+
+// 包根目录
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PACKAGE_ROOT = path.resolve(__dirname, '..');
+
+// 相对路径解析函数：从包根目录解析
+function resolveFromPackage(inputPath: string): string {
+  if (path.isAbsolute(inputPath)) {
+    return inputPath;
+  }
+  return path.resolve(PACKAGE_ROOT, inputPath);
+}
 
 // 配置
 const DEFAULT_MODEL = 'MiniMax-M2.7';
@@ -97,7 +112,12 @@ async function main() {
   }
 
   // 解析项目目录（优先级：CLI选项 > 环境变量 > 默认值）
-  const projectDir = opts.projectDir || process.env.AUTONOMOUS_CODING_PROJECT_DIR || './autonomous_demo_project';
+  const envProjectDir = process.env.AUTONOMOUS_CODING_PROJECT_DIR;
+  const cliProjectDir = process.argv.includes('--project-dir') || process.argv.includes('-p') ? opts.projectDir : undefined;
+  const rawProjectDir = cliProjectDir || envProjectDir || './autonomous_demo_project';
+  const projectDir = resolveFromPackage(rawProjectDir);
+  console.log(`[index] rawProjectDir: ${rawProjectDir}`);
+  console.log(`[index] projectDir: ${projectDir}`);
 
   // 构建提示词路径配置
   const promptPaths = {
