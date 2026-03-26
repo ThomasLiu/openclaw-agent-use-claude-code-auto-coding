@@ -36,12 +36,13 @@ pnpm typecheck        # tsc --noEmit 类型检查
 
 | 路径 | 用途 |
 |------|------|
-| `packages/autonomous-coding/` | 自主编程智能体 CLI 工具 |
 | `docs/` | 规范和提示词 — app_spec.md 是真相源 |
 | `skill/` | OpenClaw Skill 入口（`SKILL.md`） |
-| `plugins/` | 插件目录 |
+| `plugins/` | 用到的工具源码/参考 |
 | `plugins/gstack/` | Vendored gstack — **bun** 基础，独立的 package.json |
-| `plugins/openclaw/` | Vendored OpenClaw 扩展 |
+| `plugins/openclaw/` | Vendored OpenClaw |
+| `plugins/claude-code/` | Vendored claude-code |
+| `plugins/autonomous-coding/` | Vendored claude-code 自动编码示例 |
 
 ## 架构笔记
 
@@ -53,12 +54,3 @@ pnpm typecheck        # tsc --noEmit 类型检查
 - **分支**：每个 worktree = 一条分支 = 一个 PR。固定命名规范（如 `issue-<id>-<slug>`）避免多会话分支冲突。
 - **gstack 集成**：全局安装；项目设置中的 skill 列表按技术栈上下文生成。
 
-## packages/autonomous-coding
-
-自主编程智能体子项目，独立的工作区包。
-
-```bash
-cd packages/autonomous-coding
-pnpm install
-pnpm build
-```
